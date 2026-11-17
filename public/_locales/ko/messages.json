@@ -1,0 +1,8 @@
+{
+  "extensionDescription": {
+    "message": "현재 페이지의 링크를 검사합니다. 끊어진 링크를 찾아 강조 표시하고 내보내세요."
+  },
+  "actionTitle": {
+    "message": "LinkGuard — 페이지 링크 검사"
+  }
+}

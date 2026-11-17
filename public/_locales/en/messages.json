@@ -1,0 +1,8 @@
+{
+  "extensionDescription": {
+    "message": "Check links on the current page. Find, highlight and export broken links."
+  },
+  "actionTitle": {
+    "message": "LinkGuard — check page links"
+  }
+}

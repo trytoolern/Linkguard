@@ -1,0 +1,48 @@
+{
+  "name": "linkguard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt -b firefox --mv3",
+    "build": "wxt build -b firefox --mv3 && node scripts/check-firefox-manifest.mjs",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "test": "node tests/core.test.ts && node tests/page.test.ts && node tests/background.test.ts && node tests/background.test.ts chrome && node tests/i18n.test.ts && node tests/deep.test.ts && node tests/scheduler.test.ts && node tests/browser-check.test.ts && node tests/scan-pipeline.test.ts && node tests/resource-content.test.ts && node tests/crawler.test.ts && node tests/content-corpus.test.ts",
+    "postinstall": "wxt prepare",
+    "validate:firefox": "npm run build && web-ext lint --source-dir .output/firefox-mv3",
+    "fixture": "node scripts/firefox-fixture.mjs",
+    "locales": "node scripts/generate-locales.mjs",
+    "predev": "npm run locales",
+    "prebuild": "npm run locales",
+    "test:popup": "npm run build && node tests/popup-ui.mjs",
+    "update:psl": "node scripts/update-psl.mjs",
+    "release:check": "npm run check && npm test && npm run test:popup && npm run build:chrome && node tests/popup-ui.mjs chrome && npm run validate:firefox && npm run audit:dependencies",
+    "audit:dependencies": "npm audit --audit-level=high",
+    "dev:chrome": "wxt -b chrome --mv3",
+    "predev:chrome": "npm run locales",
+    "build:chrome": "wxt build -b chrome --mv3 && node scripts/check-chromium-manifest.mjs",
+    "prebuild:chrome": "npm run locales",
+    "build:all": "npm run build && npm run build:chrome",
+    "test:popup:all": "npm run build:all && node tests/popup-ui.mjs firefox && node tests/popup-ui.mjs chrome"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^6.0.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^22.0.0",
+    "@wxt-dev/module-svelte": "^2.0.0",
+    "happy-dom": "^21.0.4",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.0.0",
+    "web-ext": "^10.8.0",
+    "wxt": "^0.21.5"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "dependencies": {
+    "parse5": "7.3.0"
+  }
+}

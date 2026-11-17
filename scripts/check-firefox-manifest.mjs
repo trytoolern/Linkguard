@@ -1,0 +1,16 @@
+import { readFile } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const manifest = JSON.parse(await readFile('.output/firefox-mv3/manifest.json', 'utf8'));
+assert.equal(manifest.manifest_version, 3, 'Firefox build must use MV3');
+assert.equal(manifest.incognito, 'not_allowed', 'Private browsing must not write scan session state');
+assert.ok(manifest.background?.scripts?.length, 'Firefox needs background.scripts');
+assert.equal(manifest.background?.service_worker, undefined, 'Firefox does not use a Chrome service worker');
+assert.notEqual(manifest.background?.persistent, true, 'MV3 background must be non-persistent');
+assert.equal(manifest.minimum_chrome_version, undefined);
+assert.equal(manifest.browser_specific_settings?.gecko?.strict_min_version, '140.0');
+assert.ok(manifest.browser_specific_settings?.gecko?.id);
+assert.deepEqual(manifest.browser_specific_settings.gecko.data_collection_permissions.required, ['websiteContent']);
+assert.ok(manifest.action?.default_popup);
+for (const permission of ['activeTab', 'scripting', 'storage']) assert.ok(manifest.permissions?.includes(permission));
+for (const origin of ['http://*/*', 'https://*/*']) assert.ok(manifest.host_permissions?.includes(origin));
+console.log('Firefox MV3 manifest checks passed.');

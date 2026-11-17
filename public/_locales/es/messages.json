@@ -1,0 +1,8 @@
+{
+  "extensionDescription": {
+    "message": "Comprueba los enlaces de la página. Encuentra, resalta y exporta enlaces rotos."
+  },
+  "actionTitle": {
+    "message": "LinkGuard — comprobar enlaces"
+  }
+}

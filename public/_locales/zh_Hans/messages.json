@@ -1,0 +1,8 @@
+{
+  "extensionDescription": {
+    "message": "检查当前页面的链接。查找、突出显示并导出失效链接。"
+  },
+  "actionTitle": {
+    "message": "LinkGuard — 检查页面链接"
+  }
+}

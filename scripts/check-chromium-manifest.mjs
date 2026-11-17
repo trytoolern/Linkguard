@@ -1,0 +1,16 @@
+import { readFile } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const manifest = JSON.parse(await readFile('.output/chrome-mv3/manifest.json', 'utf8'));
+assert.equal(manifest.manifest_version, 3);
+assert.equal(manifest.incognito, 'not_allowed');
+assert.ok(manifest.background?.service_worker, 'Chromium needs a service worker');
+assert.equal(manifest.background?.scripts, undefined);
+assert.equal(manifest.background?.persistent, undefined);
+assert.equal(manifest.browser_specific_settings, undefined, 'No Firefox-only manifest keys');
+assert.equal(manifest.minimum_chrome_version, '120');
+assert.ok(!manifest.permissions?.includes('cookies'));
+assert.ok(!manifest.optional_permissions?.includes('cookies'), 'Chromium does not need Firefox container access');
+for (const permission of ['activeTab', 'scripting', 'storage', 'webRequest']) assert.ok(manifest.permissions?.includes(permission));
+for (const origin of ['http://*/*', 'https://*/*']) assert.ok(manifest.host_permissions?.includes(origin));
+assert.ok(manifest.action?.default_popup);
+console.log('Chromium MV3 manifest checks passed.');

@@ -1,0 +1,8 @@
+{
+  "extensionDescription": {
+    "message": "現在のページのリンクを確認します。リンク切れを検出し、強調表示して出力できます。"
+  },
+  "actionTitle": {
+    "message": "LinkGuard — ページのリンクを確認"
+  }
+}
